@@ -1,0 +1,16 @@
+# Processamento e Análise de Dados
+pandas
+numpy
+
+# Visualização de Dados
+matplotlib
+seaborn
+
+# Machine Learning (Para Regressão Linear)
+scikit-learn
+
+# Interface de Agente (Estilo Looqbox)
+streamlit
+
+# Variáveis de Ambiente (Para chaves de API futuras)
+python-dotenv
