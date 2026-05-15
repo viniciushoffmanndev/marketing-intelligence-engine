@@ -1,18 +1,31 @@
 import streamlit as st
 import pandas as pd
 import os
-# Importando suas classes existentes
+import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+from openai import OpenAI
+
+# 1. Carregamento de Variáveis de Ambiente e Classes
 from modelo.bar.cardPlataformasPublicidades import CardPlataformasPublicidades
-from modelo.regressao.regressaoLinear import RegressaoLinear
 from modelo.heatmap.correlacaoHeatmap import CorrelacaoHeatmap
+from modelo.regressao.regressaoLinear import RegressaoLinear
 
-# Configuração da página estilo Looqbox
-st.set_page_config(page_title="Looqbox Agent Replica", layout="wide")
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-st.title("🤖 Agente de Dados Looqbox (Replica)")
+# 2. Configuração da Interface (Apenas uma vez!)
+st.set_page_config(page_title="Vinicius Pais Agent", layout="wide")
+
+st.title("Agente de Dados Vinicius Pais")
 st.markdown("---")
 
-# Carregamento dos dados (Backend)
+# 3. Sidebar informativa
+with st.sidebar:
+    st.header("Status do Agente")
+    st.success("Conectado à base: banco.csv")
+    st.info("Habilidades: Regressão, Heatmaps e Análise de Investimento")
+
+# 4. Backend: Carregamento dos dados
 @st.cache_data
 def carregar_dados():
     caminho = os.path.join("notebooks", "raw", "banco.csv")
@@ -20,35 +33,35 @@ def carregar_dados():
 
 base_marketing = carregar_dados()
 
-# Interface de Chat
-prompt = st.chat_input("Digite sua dúvida (ex: 'Quero um insight' ou 'Comparativo')")
+# 5. Interface de Chat
+prompt = st.chat_input("Como posso ajudar com os dados de marketing hoje?")
 
 if prompt:
     st.chat_message("user").write(prompt)
     
     with st.chat_message("assistant"):
-        st.write("🔎 Analisando a estrutura dos dados...")
-        
-        # Lógica de decisão do Agente baseada em suas classes
-        if "comparativo" in prompt.lower():
-            st.write("Gerando comparativo de plataformas...")
-            analise = CardPlataformasPublicidades(base_marketing)
-            # Aqui chamamos o método que gera o gráfico na sua classe
-            fig = analise.plataformas_publicidades() 
-            st.pyplot(fig) # Exibe no 'Canvas' do Streamlit
+        p_lower = prompt.lower()
+        st.write("Analisando a estrutura dos dados...")
+
+        # Lógica Unificada de Decisão
+        if "comparativo" in p_lower or "investimento" in p_lower:
+            st.write("Analisando investimentos por plataforma...")
+            obj = CardPlataformasPublicidades(base_marketing)
+            st.pyplot(obj.plataformas_publicidades())
             
-        elif "insight" in prompt.lower() or "prever" in prompt.lower():
-            st.write("Calculando modelo preditivo de vendas...")
-            regressao = RegressaoLinear(base_marketing)
-            y_test, y_pred = regressao.regressao()
-            # Integração com sua classe de plotagem preditiva
-            st.success("Insight gerado com sucesso!")
+        elif "correlação" in p_lower or "heatmap" in p_lower:
+            st.write("Gerando matriz de correlação entre variáveis...")
+            obj = CorrelacaoHeatmap(base_marketing)
+            st.pyplot(obj.heatmap())
             
-        elif "correlação" in prompt.lower() or "heatmap" in prompt.lower():
-            st.write("Gerando matriz de correlação...")
-            heatmap = CorrelacaoHeatmap(base_marketing)
-            fig = heatmap.heatmap()
-            st.pyplot(fig)
+        elif "insight" in p_lower or "prever" in p_lower or "vendas" in p_lower:
+            st.write("Executando modelo de Regressão Linear para previsão de vendas...")
+            obj = RegressaoLinear(base_marketing)
+            y_test, y_pred = obj.regressao()
+            
+            st.metric("Acurácia Simbolizada", f"{len(y_pred)} predições geradas")
+            st.success("Modelo treinado e executado com sucesso!")
             
         else:
-            st.info("Ainda estou aprendendo! Tente perguntar por 'comparativo', 'correlação' ou 'insight'.")
+            # Espaço para o fallback da OpenAI que faremos a seguir
+            st.warning("Ainda não conheço esse comando específico. Tente pedir um 'comparativo', 'correlação' ou 'previsão'.")
