@@ -14,3 +14,6 @@ streamlit
 
 # Variáveis de Ambiente (Para chaves de API futuras)
 python-dotenv
+
+# Integração com LLM
+openai
