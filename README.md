@@ -9,13 +9,17 @@ Este projeto transforma dados brutos de marketing em insights visuais dinâmicos
 ## 📺 Demonstração em Vídeo
 
 ### Análise de Performance de Ads
-<video src="movie/ads.webm" width="100%" controls></video>
+[ads.webm](https://github.com/user-attachments/assets/97cc7dd9-5f8a-4025-acef-7a992503fb78)
+
 
 ### Evolução de Vendas Diárias
-<video src="movie/evolucao-vendas.webm" width="100%" controls></video>
+[evolucao-vendas.webm](https://github.com/user-attachments/assets/55a3930d-b605-48a3-80c7-b7faa59dc3ed)
+
 
 ### Impacto de Influenciadores
-<video src="movie/influenciadores-vendas.webm" width="100%" controls></video>
+[influenciadores-vendas.webm](https://github.com/user-attachments/assets/335e5b60-9a87-48bd-a87c-6a830aada9e6)
+
+
 
 
 ## Visão Geral
