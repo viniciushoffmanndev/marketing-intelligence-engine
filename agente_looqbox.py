@@ -32,7 +32,7 @@ with st.sidebar:
     st.code("\n".join(base_marketing.columns.tolist()))
 
 # 4. Interface de Chat
-prompt = st.chat_input("Peça uma análise (ex: 'Gráfico de pizza dos gastos' ou 'Relação YouTube vs Vendas')")
+prompt = st.chat_input("Peça uma análise (ex: 'Mostre a evolução das vendas ao longo do tempo' ou 'Crie um gráfico comparando Google Ads e TikTok Ads')")
 
 if prompt:
     st.chat_message("user").write(prompt)
