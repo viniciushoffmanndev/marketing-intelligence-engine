@@ -10,9 +10,9 @@ from openai import OpenAI
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-st.set_page_config(page_title="Hoffmann Intelligence Engine", layout="wide")
+st.set_page_config(page_title="Intelligence Engine", layout="wide")
 
-st.title("Agente de Dados Vinicius Pais")
+st.title("Agente de Dados")
 st.markdown("---")
 
 # 2. Carregamento dos dados
